@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Generator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center">QR Code Generator</h1>
+            <form class="text-center" method="post" onsubmit="return validateForm()" th:action="@{/generateQRCode}">
+                <div class="form-group">
+                    <label for="url">Enter URL:</label>
+                    <input class="form-control" id="url" name="url" required
+                           th:attr="placeholder=#{validation.url.required}"
+                           type="url">
+                    <div class="invalid-feedback">
+                        Please enter a valid URL (e.g., https://www.google.com).
+                    </div>
+                    <span class="text-danger" id="error-message"></span>
+                </div>
+                <button class="btn btn-primary" type="submit">Generate QR Code</button>
+            </form>
+            <div class="mt-4" th:if="${qrCode}">
+                <h2 class="text-center">Generated QR Code</h2>
+                <img alt="QR Code" class="img-fluid" th:src="'data:image/png;base64,' + ${qrCode}">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function validateForm() {
+        var urlValue = document.getElementById("url").value;
+        var errorMessage = document.getElementById("error-message");
+        var urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+
+        if (!urlPattern.test(urlValue)) {
+            errorMessage.innerHTML = "Please enter a valid URL (e.g., https://www.google.com).";
+            return false;
+        } else {
+            errorMessage.innerHTML = "";
+            return true;
+        }
+    }
+</script>
+</body>
+</html>
