@@ -6,6 +6,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -13,7 +17,7 @@
             <form class="text-center" method="post" onsubmit="return validateForm()" th:action="@{/generateQRCode}">
                 <div class="form-group">
                     <label for="url">Enter URL:</label>
-                    <input class="form-control" id="url" name="url" required
+                    <input class="form-control" id="url" name="url"
                            th:attr="placeholder=#{validation.url.required}"
                            type="url">
                     <div class="invalid-feedback">
@@ -30,7 +34,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
